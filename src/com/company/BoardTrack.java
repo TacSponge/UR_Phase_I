@@ -24,7 +24,7 @@ public class BoardTrack {
 
     }
 
-    public  BoardTrack(int boardSize, int numPoolPieces){
+    public BoardTrack(int boardSize, int numPoolPieces){
         this.leftTrack = new ArrayList(boardSize);
         this.rightTrack = new ArrayList(boardSize);
 
