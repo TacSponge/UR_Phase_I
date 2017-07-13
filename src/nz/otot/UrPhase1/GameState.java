@@ -1,5 +1,6 @@
 package nz.otot.UrPhase1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,6 +8,14 @@ import java.util.List;
  * This keeps track of the game state and passes information to the View/ Controller
  */
 public class GameState implements Interactor {
+
+    ArrayList<Player> players;
+
+
+    public GameState(ArrayList<Player> players){
+        this.players = players;
+    }
+
 
     @Override
     public void spawnPiece(Player player) {

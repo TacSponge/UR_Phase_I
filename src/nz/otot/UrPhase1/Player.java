@@ -25,6 +25,13 @@ public class Player {
         this.startingNode = startingNode; // Takes a start Node from the graph so the graph needs to be made first
 
     }
+    public Player(int startingPieces, Node<GamePiece> startingNode) {
+
+        this.name = "Player" + Integer.toString(playerCount++);
+        this.piecePool = startingPieces;
+        this.startingNode = startingNode; // Takes a start Node from the graph so the graph needs to be made first
+
+    }
 
 
     // Pool Management methods
