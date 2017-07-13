@@ -21,7 +21,7 @@ public class Node<T>{
 
     public Node(){
         this.childNodes = new ArrayList<Node>(0);
-        this.players =  new ArrayList<Node>(0);
+        this.players =  new ArrayList<Player>(0);
     }
     public Node(ArrayList<Node> childNodes, ArrayList<Player> players){
         this.childNodes = childNodes;

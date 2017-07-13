@@ -40,7 +40,7 @@ public class GamePiece{
             }
             // otherwise move our virtual position to the next node
             else{
-                Node nextPos = advanceVirtual(options);
+                Node nextPos = advanceVirtual(options, virtualPosition);
 
                 // if advance doesn't have anywhere to go we have reached a dead end so remove the peice
                 if (nextPos == virtualPosition){

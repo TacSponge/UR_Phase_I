@@ -43,9 +43,9 @@ public class Player {
         piecePool--;
 
     }
-    public void transferPeice(){
+    public GamePiece transferPeice(){
         killPiece();
-        return new GamePiece();
+        return new GamePiece(this);
     }
 
     public Node<GamePiece> getStartingNode(){
