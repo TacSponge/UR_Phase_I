@@ -10,7 +10,7 @@ public interface Interactor extends StateReader {
     void spawnPiece(Player player);
 
    // Moves a piece by a set distance
-    void movePiece(GamePiece piece, int dist);
+    void movePiece(Piece piece, int dist);
 
 
 }

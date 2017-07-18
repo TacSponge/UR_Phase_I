@@ -1,7 +1,5 @@
 package nz.otot.UrPhase1;
 
-import com.sun.org.glassfish.gmbal.GmbalException;
-
 /**
  * Created by Main on 05-Jul-17.
  * This keeps track of the Pool of unused tokens that have yet to be place on the board.
@@ -16,20 +14,27 @@ public class Player {
     private String name;
 
     private int piecePool; //number of peices available to use in the pool, not on the board.
-    private Node<GamePiece> startingNode;
+    private Node<Piece> startingNode;
 
-    public Player(String name, int startingPieces, Node<GamePiece> startingNode) {
+    public Player(String name, int startingPieces, Node<Piece> startingNode) {
 
         this.name = name;
         this.piecePool = startingPieces;
         this.startingNode = startingNode; // Takes a start Node from the graph so the graph needs to be made first
 
     }
-    public Player(int startingPieces, Node<GamePiece> startingNode) {
+    public Player(int startingPieces, Node<Piece> startingNode) {
 
         this.name = "Player" + Integer.toString(playerCount++);
         this.piecePool = startingPieces;
         this.startingNode = startingNode; // Takes a start Node from the graph so the graph needs to be made first
+
+    }
+    public Player(int startingPieces) {
+
+        this.name = "Player" + Integer.toString(playerCount++);
+        this.piecePool = startingPieces;
+        this.startingNode = new Node<Piece>(); // Takes a start Node from the graph so the graph needs to be made first
 
     }
 
@@ -38,7 +43,7 @@ public class Player {
 
     public void spawnPiece(){
         //Creates a virtual piece by incrementing one side.
-        //In future this could be amended to actually create a GamePiece object
+        //In future this could be amended to actually create a Piece object
 
         piecePool++;
 
@@ -50,12 +55,12 @@ public class Player {
         piecePool--;
 
     }
-    public GamePiece transferPeice(){
+    public Piece transferPeice(){
         killPiece();
-        return new GamePiece(this);
+        return new Piece(this);
     }
 
-    public Node<GamePiece> getStartingNode(){
+    public Node<Piece> getStartingNode(){
         return startingNode;
     }
 

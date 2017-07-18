@@ -25,7 +25,7 @@ public class GameState implements Interactor {
 
 
     @Override
-    public void movePiece(GamePiece piece, int dist) {
+    public void movePiece(Piece piece, int dist) {
         piece.movePiece(dist);
     }
 

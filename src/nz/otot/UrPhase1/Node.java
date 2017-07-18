@@ -11,6 +11,9 @@ import java.util.Optional;
  *
  * Pieces move themselves along the graph and off it using the nodes as guidelines.
  *
+ * (19/07)
+ * This node is a directional node and is Mutable
+ *
  */
 public class Node<T>{
 
@@ -28,6 +31,10 @@ public class Node<T>{
         this.players = players;
 
     }
+    public Node(ArrayList<Node> childNodes){
+        this.childNodes = childNodes;
+        this.players = new ArrayList<>(0);
+    }
 
     public Optional<T> getContent() {
         return Optional.of(content);
@@ -36,8 +43,17 @@ public class Node<T>{
     public void setContent(T content) {
         this.content = content;
     }
+    public void addPlayer(Player player){
+        if (!this.players.contains(player)) {
+            this.players.add(player);
+        }
+    }
     public void clearContent(){
         content = null;
+    }
+
+    public void addChild(Node<T> child){
+        this.childNodes.add(child);
     }
 
     public ArrayList<Node> getChildren(){
