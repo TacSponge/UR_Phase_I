@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Main on 13-Jul-17.
+ *
+ * Starts up the game
  */
 public class GameStart {
 
@@ -12,16 +14,17 @@ public class GameStart {
     int startingPieces = 7;
 
     public GameStart(){
-        this.startNodes = buildGraph();
+        // Build the graph and assign players their nodes.
+        GraphBuilder builder = new GraphBuilder();
+
+        this.startNodes = builder.getStartNodes();
         this.players = makePlayers(startNodes);
+        for (Player p : players) builder.assignNodesToPlayer(p, p.getStartingNode());
+
 
         GameState state = new GameState(players);
     }
-    private ArrayList<Node> buildGraph(){
-        GraphBuilder builder = new GraphBuilder();
 
-        return builder.getStartNodes();
-    }
     private ArrayList<Player> makePlayers(ArrayList<Node> startNodes){
         ArrayList<Player> players = new ArrayList<Player>(startNodes.size());
 
@@ -31,5 +34,6 @@ public class GameStart {
 
         return players;
     }
+
 
 }

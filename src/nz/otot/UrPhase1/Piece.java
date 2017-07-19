@@ -34,7 +34,7 @@ public class Piece {
 
             ArrayList<Node> options = virtualPosition.getChildren();
 
-            // If the node is a dead end the piece can be removed and scored.
+            // If the node is a dead-end the piece can be removed and scored.
             if (options.isEmpty()){
                 removeAndScore();
             }
@@ -43,22 +43,21 @@ public class Piece {
                 Node nextPos = advanceVirtual(options, virtualPosition);
 
                 // if advance doesn't have anywhere to go we have reached a dead end so remove the peice
-                if (nextPos == virtualPosition){
-
-                    removeAndScore();
-                }
+                if (nextPos == virtualPosition) removeAndScore();
             }
         }
-        // once location is determined check if valid and resolve displacements
-        Optional<Piece> nodePieceOpt = virtualPosition.getContent();
 
-        if(nodePieceOpt.isPresent()){
-            if (nodePieceOpt.get().getPlayer() == this.player){
+
+        // once location is determined check if valid and resolve displacements
+        Optional<Piece> peiceInNode = virtualPosition.getContent();
+
+        if(peiceInNode.isPresent()){
+            if (peiceInNode.get().getPlayer() == this.player){
                 // TODO: 13-Jul-17  implement (in)validation
             }
             else{
                 // Like ludo hitting another piece moves that piece away to start
-                nodePieceOpt.get().displace();
+                peiceInNode.get().displace();
             }
 
         }
@@ -67,11 +66,8 @@ public class Piece {
 
     private Node<Piece> advanceVirtual(ArrayList<Node> options, Node<Piece> currentNode){
 
-        for(Node n : options){
-            if (n.getPlayers().contains(this.player)){
-                return n;
-            }
-        }
+        for(Node child : options)
+            if (child.getPlayers().contains(this.player)) return child;
         // if there is no next square stay in currrent square.
         return currentNode;
     }

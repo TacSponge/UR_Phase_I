@@ -12,7 +12,7 @@ import java.util.Optional;
  * Pieces move themselves along the graph and off it using the nodes as guidelines.
  *
  * (19/07)
- * This node is a directional node and is Mutable
+ * This node is a directional node and is Mutable and nodes can be added but not removed.
  *
  */
 public class Node<T>{

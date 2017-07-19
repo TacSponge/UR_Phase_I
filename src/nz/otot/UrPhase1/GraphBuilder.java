@@ -1,108 +1,117 @@
 package nz.otot.UrPhase1;
 
-import java.awt.*;
-import java.util.ArrayList;
+
+import java.util.*;
+
 
 /**
  * Created by Main on 13-Jul-17.
+ *
+ * This class currently only ever needs to make one graph.
+ *
+ * If the need occurs this can be expanded to make an arbitrary graph, this is not a priority for the project.
+ *
+ *
+ this takes:
+    - an int for the number of nodes
+    - an int for which start nodes are the start nodes the first n nodes are the start nodes.
+    - an 2D showing the edges where each row is an edge the left column is the parent and the right is the child.
+    -
+
+
+ Again at this time it is only producing one graph so the constructors for arbitrary graphs are not implemented at this
+    time. So the class has a constructor with no parameters and provides the required parameters to proiduce the below
+
+ S = start square, joined to squares below, . = empty, j = join parents are side square children is below, s = split,
+ parent above child to the side, n = normal tile, child below unless it's a join
+
+ {'S' 0,     '.',        'S' 1},                  v   v
+ {'n' 2,     '.',        'n' 3},                  v   v
+ {'n' 3,     '.',        'n' 4},                  v   v
+ {'n' 5,     'j' 6,      'n'7},                   > v <
+ {'.',       'n' 8,      '.'},                      v
+ {'.',       'n' 9,      '.'},                      v
+ {'.',       'n' 10,     '.'},                      v
+ {'.',       'n' 11,     '.'},                      v
+ {'.',       'n' 12      '.'},                      v
+ {'.',       'n' 13      '.'},                      v
+ {'n' 14,    's' 15,     'n' 16},                 v <>v
+ {'n' 17,    '.' ,      'n' 18}                  .   .
+
+
+ *
  */
-public class GraphBuilder {
+public class GraphBuilder<T> {
 
-    private ArrayList<Node> startNodes = new ArrayList<>();
+    private int numNodes;
+    private ArrayList<Node> startNodes;
+    private int[][] edges;
 
-    // S = start square, . = empty, j = join, s = split, n = normal tile
-    char[][] twoPlayerTemplate = {
 
-            {'S', '.', 'S'},
-            {'n', '.', 'n'},
-            {'n', '.', 'n'},
-            {'n', 'j', 'n'},
-            {'.', 'n', '.'},
-            {'.', 'n', '.'},
-            {'.', 'n', '.'},
-            {'.', 'n', '.'},
-            {'.', 'n', '.'},
-            {'.', 'n', '.'},
-            {'n', 's', 'n'},
-            {'n', '.', 'n'}
-    };
 
+    // with no parameters the builder creaters the above graph
     public GraphBuilder(){
-        buildFromTemplate(twoPlayerTemplate);
+        this.numNodes = 19;
+        int numStartNodes = 2; //first two nodes are start nodes.
 
+        this.edges = new int[][]{
+                    {0,2},{2,3},{3,5},{5,6},{1,3},{3,4},{4,7},{7,6},
+                    {6,8},{8,9},{9,10},{11,12},{12,13},{13,15},
+                    {15,14}, {14,17},{15,16},{16,18}
+        };
+
+        ArrayList<Node> nodes = genNodes(numNodes);
+        addEdges(nodes);
+        // set start nodes
+        startNodes = new ArrayList<Node>();
+        for(int i = 0; i < numStartNodes; i++) startNodes.add(nodes.get(i));
+
+    }
+
+    private ArrayList<Node> genNodes(int numNodes){
+
+        ArrayList<Node> nodes = new ArrayList<>();
+
+        for(int n = 0; n < numNodes; n++) nodes.add(new Node<T>());
+
+        return nodes;
+    }
+
+    private void addEdges(ArrayList<Node> nodes){
+
+        for(int[] edge : edges){
+            Node parent = nodes.get(edge[0]);
+            Node child = nodes.get(edge[1]);
+
+            parent.addChild(child);
+        }
     }
 
     public ArrayList<Node> getStartNodes(){
         return this.startNodes;
     }
-    private void buildFromTemplate(char[][] template){
 
+    public void assignNodesToPlayer(Player player, Node node){
+        // iterativly proceeds down the tree to make a path of nodes for that player
+        // if there is only one child it adds itself to the players of that node
+        // if there are multiple it adds itself to one of them
 
-        //get the start the start points
-        Point p;
+        ArrayList<Node> children = node.getChildren();
 
+        if(children.size() == 1){
+            children.get(0).addPlayer(player);
 
-        for(int i = 0; i < template.length; i++){
-            for(int j = 0; j < template[0].length; j++) {
-                if (template[i][j] == 'S') {
-                     p = new Point(i,j);
+        }
+        //If there are is more than one route assign the player to the first available route
+        if(children.size() > 1){
+            for (Node n: children) {
+                if(n.getPlayers().isEmpty()){
+                    n.addPlayer(player);
+                    break;
                 }
             }
         }
-
-
-        Node<Piece> s = new Node<Piece>(createChildren(Point(p),template));
-
     }
-    private ArrayList<Node> createChildren(Point p, char[][] template){
-
-        ArrayList<Node> children = new ArrayList<>();
-
-        int i = (int) p.getY();
-        int j = (int) p.getX();
-
-        //the next action depends on this nodes type
-        // if it is a normal node it's child is below it
-
-        //Get the type of the node from the template
-        char type = template[i][j];
-
-        //check types and whether there is room in the char[][] for a node to be in the expected slot
-        //
-        if (type == 'n' && i + 1 < template.length && template[i+1][j] != '.'){
-            children.add(new Node<Piece>(createChildren(new Point(j,i+1,),template)));
-        }
-        if(type == 's'){
-            if (j > 0 && template[i][j -1] != '.'){
-                children.add(new Node<Piece>(createChildren(new Point(j-1, i),template)));
-
-            }
-        }
-
-
-        /*if (i > 0 && j + 1 < template[0].length  ){
-
-
-            char canditate = template[i -1 ][j + 1];
-            Pointer2D candPos = new Pointer2D(i-1, j+1);
-
-            if(canditate == 'n'){
-                children.add(new Node<Piece>(createChildren(candPos,template)));
-            }
-            if(canditate == 'j'){
-                Node<Piece> joiner = new Node<>(createChildren(candPos,template));
-                children.add(joiner);
-                createParents(joiner);
-            }
-        }
-        */
-
-
-    }
-
-
-
-
 
 
 
