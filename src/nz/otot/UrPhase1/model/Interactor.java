@@ -1,4 +1,4 @@
-package nz.otot.UrPhase1;
+package nz.otot.UrPhase1.model;
 
 /**
  * Created by Main on 05-Jul-17.

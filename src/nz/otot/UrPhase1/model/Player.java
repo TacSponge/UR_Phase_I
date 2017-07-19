@@ -1,4 +1,7 @@
-package nz.otot.UrPhase1;
+package nz.otot.UrPhase1.model;
+
+import nz.otot.UrPhase1.Main;
+import nz.otot.UrPhase1.model.graph.Node;
 
 /**
  * Created by Main on 05-Jul-17.
@@ -16,21 +19,23 @@ public class Player {
     private int piecePool; //number of peices available to use in the pool, not on the board.
     private Node<Piece> startingNode;
 
-    public Player(String name, int startingPieces, Node<Piece> startingNode) {
+    Player(String name, int startingPieces, Node<Piece> startingNode) {
 
         this.name = name;
         this.piecePool = startingPieces;
         this.startingNode = startingNode; // Takes a start Node from the graph so the graph needs to be made first
 
     }
-    public Player(int startingPieces, Node<Piece> startingNode) {
+    Player(int startingPieces, Node<Piece> startingNode) {
 
         this.name = "Player" + Integer.toString(playerCount++);
         this.piecePool = startingPieces;
         this.startingNode = startingNode; // Takes a start Node from the graph so the graph needs to be made first
 
+        if(Main.testing)System.out.println("Player " + this.name + " created.");
+
     }
-    public Player(int startingPieces) {
+    Player(int startingPieces) {
 
         this.name = "Player" + Integer.toString(playerCount++);
         this.piecePool = startingPieces;
@@ -41,7 +46,7 @@ public class Player {
 
     // Pool Management methods
 
-    public void spawnPiece(){
+    void spawnPiece(){
         //Creates a virtual piece by incrementing one side.
         //In future this could be amended to actually create a Piece object
 
@@ -49,22 +54,22 @@ public class Player {
 
     }
 
-    public void killPiece(){
+    void killPiece(){
         //counterpart to spawn Pieces
 
         piecePool--;
 
     }
-    public Piece transferPeice(){
+    Piece transferPeice(){
         killPiece();
         return new Piece(this);
     }
 
-    public Node<Piece> getStartingNode(){
+    Node<Piece> getStartingNode(){
         return startingNode;
     }
 
-    public int getSize(){
+    int getSize(){
         return this.piecePool;
     }
 

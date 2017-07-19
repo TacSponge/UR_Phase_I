@@ -1,4 +1,6 @@
-package nz.otot.UrPhase1;
+package nz.otot.UrPhase1.model.graph;
+
+import nz.otot.UrPhase1.model.Player;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -43,7 +45,8 @@ public class Node<T>{
     public void setContent(T content) {
         this.content = content;
     }
-    public void addPlayer(Player player){
+
+    void addPlayer(Player player){
         if (!this.players.contains(player)) {
             this.players.add(player);
         }
@@ -52,7 +55,7 @@ public class Node<T>{
         content = null;
     }
 
-    public void addChild(Node<T> child){
+    void addChild(Node<T> child){
         this.childNodes.add(child);
     }
 

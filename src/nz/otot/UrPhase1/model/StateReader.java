@@ -1,5 +1,6 @@
-package nz.otot.UrPhase1;
+package nz.otot.UrPhase1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,5 +11,7 @@ public interface StateReader {
     List getPostions();
 
     int getPoolSize(Player player);
+
+    ArrayList<Player> getPlayers();
 }
 

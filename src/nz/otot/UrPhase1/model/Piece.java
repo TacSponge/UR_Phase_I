@@ -1,5 +1,8 @@
-package nz.otot.UrPhase1;
+package nz.otot.UrPhase1.model;
 
+import nz.otot.UrPhase1.model.graph.Node;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -7,7 +10,7 @@ import java.util.Optional;
  * Created by Main on 05-Jul-17.
  * A single game piece
  */
-public class Piece {
+class Piece implements UIPeice{
 
     // All pieces are interchangable, movement is currently handled by the piece itself
 
@@ -15,16 +18,18 @@ public class Piece {
     private Player player;
 
 
-    public Piece(Player player){
+
+
+    Piece(Player player){
 
         this.player = player;
         this.position = player.getStartingNode();
     }
-    public Player getPlayer() {
+    Player getPlayer() {
         return player;
     }
 
-    public void movePiece(int distance){
+    void movePiece(int distance){
 
         // Keeps track of where the node is virtually until it locks in its new poistiomnn
         Node<Piece> virtualPosition = this.position;
@@ -61,7 +66,11 @@ public class Piece {
             }
 
         }
+        else {
 
+            this.position = virtualPosition;
+            this.position.setContent(this);
+        }
     }
 
     private Node<Piece> advanceVirtual(ArrayList<Node> options, Node<Piece> currentNode){
@@ -89,6 +98,9 @@ public class Piece {
         this.player.spawnPiece();
     }
 
-
+    @Override
+    public Point getBoardPosition2p() {
+        if
+    }
 
 }
