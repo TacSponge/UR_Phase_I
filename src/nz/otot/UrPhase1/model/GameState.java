@@ -1,5 +1,6 @@
 package nz.otot.UrPhase1.model;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import nz.otot.UrPhase1.Main;
 import nz.otot.UrPhase1.model.graph.*;
 
@@ -8,13 +9,16 @@ import java.util.List;
 
 /**
  * Created by Main on 05-Jul-17.
- * This keeps track of the game state and passes information to the View/ Controller
+ * This keeps track of the game state and passes information to the View/ Controller.
+ * The UI then sends commands from the user to Gamestate
  */
 public class GameState implements Interactor {
 
+    // Start nodes are start points in the directional graph that makes up the board.
+    // There is a 1-1 correspondence between the number of players and number of start nodes. 2 by default.
     private ArrayList<Node> startNodes;
     private ArrayList<Player> players;
-    private int startingPieces = 7;
+    private int startingPieces = 7; // in future this may be configured base on the game mode.
 
 
 
@@ -31,8 +35,10 @@ public class GameState implements Interactor {
 
 
     private ArrayList<Player> makePlayers(ArrayList<Node> startNodes){
+
         ArrayList<Player> players = new ArrayList<Player>(startNodes.size());
 
+        // While the game only needs two players, this allows more modes to be added later.
         for(Node n : startNodes){
             players.add(new Player(7,n));
         }
@@ -53,7 +59,8 @@ public class GameState implements Interactor {
     }
 
     @Override
-    public ArrayList<Piece> getPostions() {
+    public ArrayList<UIGamePeice> getPostions() {
+        // TODO implement this.
         return null;
     }
 

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Main on 19-Jul-17.
+ *
+ * Start of console based user interaction with the game.
+ *
  */
 class ConsoleOutput {
 
@@ -19,8 +22,6 @@ class ConsoleOutput {
 
     void update(){
         ArrayList<Player> players = state.getPlayers();
-
-
     }
-
+    // TODO implemt everything
 }

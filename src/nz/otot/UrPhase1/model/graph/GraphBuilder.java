@@ -30,16 +30,16 @@ import java.util.*;
 
  {'S' 0,     '.',        'S' 1},                  v   v
  {'n' 2,     '.',        'n' 3},                  v   v
- {'n' 3,     '.',        'n' 4},                  v   v
- {'n' 5,     'j' 6,      'n'7},                   > v <
- {'.',       'n' 8,      '.'},                      v
+ {'n' 4,     '.',        'n' 5},                  v   v
+ {'n' 6,     'j' 7,      'n'8},                   > v <
  {'.',       'n' 9,      '.'},                      v
- {'.',       'n' 10,     '.'},                      v
+ {'.',       'n' 10,      '.'},                      v
  {'.',       'n' 11,     '.'},                      v
- {'.',       'n' 12      '.'},                      v
+ {'.',       'n' 12,     '.'},                      v
  {'.',       'n' 13      '.'},                      v
- {'n' 14,    's' 15,     'n' 16},                 v <>v
- {'n' 17,    '.' ,      'n' 18}                  .   .
+ {'.',       'n' 14      '.'},                      v
+ {'n' 15,    's' 16,     'n' 17},                 v <>v
+ {'n' 18,    '.' ,      'n' 19}                  .   .
 
 
  *
@@ -53,15 +53,15 @@ public class GraphBuilder<T> {
 
     // with no parameters the builder creaters the above graph
     public GraphBuilder(){
-        this.numNodes = 19;
+        this.numNodes = 20;
         int numStartNodes = 2; //first two nodes are start nodes.
 
         this.edges = new int[][]{
-                    {0,2},{2,3},{3,5},{5,6},
-                    {1,3},{3,4},{4,7},{7,6},
-                    {6,8},{8,9},{9,10},{11,12},{12,13},{13,15},
-                    {15,14}, {14,17},
-                    {15,16},{16,18}
+                    {0,2},{2,4},{4,6},{6,7},
+                    {1,3},{3,5},{5,8},{8,7},
+                    {7,9},{9,10},{11,12},{12,13},{13,14},{14,16},
+                    {16,15}, {15,18},
+                    {16,17},{17,18}
         };
 
         ArrayList<Node> nodes = genNodes(numNodes);
@@ -116,6 +116,8 @@ public class GraphBuilder<T> {
             }
         }
     }
+
+
     public Node[][] gen2PGrid(ArrayList<Node> nodes){
         // returns a grid representation of the graph as based on the shape of the Ur board
         // see below diagram, with arrow symbols, S = start , E = end
@@ -132,15 +134,16 @@ public class GraphBuilder<T> {
 
 
 
-        Node[][] grid = {   {nodes.get(5),nodes.get(6),nodes.get(7)},
-                            {nodes.get(3),nodes.get(8),nodes.get(4)},
-                            {nodes.get(2),nodes.get(9),nodes.get(3)},
-                            {nodes.get(0),nodes.get(10),nodes.get(1)},
-                            {new Node<T>(), nodes.get(11),new Node<T>},
-                            {new Node<T>(), nodes.get(12),new Node<T>},
-                            {nodes.get(17),nodes.get(13),nodes.get(18)},
-                            {nodes.get(14),nodes.get(15),nodes.get(16)}
+        final Node[][] grid = { {nodes.get(6),nodes.get(7),nodes.get(8)},
+                                {nodes.get(4),nodes.get(9),nodes.get(5)},
+                                {nodes.get(2),nodes.get(10),nodes.get(3)},
+                                {nodes.get(0),nodes.get(11),nodes.get(1)},
+                                {new Node<T>(), nodes.get(12),new Node<T>()},
+                                {new Node<T>(), nodes.get(13),new Node<T>()},
+                                {nodes.get(18),nodes.get(14),nodes.get(19)},
+                                {nodes.get(15),nodes.get(16),nodes.get(17)}
                         };
+        return grid;
     }
 
 
