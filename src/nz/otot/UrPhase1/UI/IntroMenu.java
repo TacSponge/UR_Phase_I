@@ -5,7 +5,7 @@ import java.awt.*;
 
 /**
  * Created by Main on 21-Sep-17.
- * This is the basic UI.
+ * This is the basic GUI.
  * For MVP it just needs to be able to start a new game or exit the programme.
  */
 public class IntroMenu extends JPanel{

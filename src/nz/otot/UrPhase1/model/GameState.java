@@ -5,12 +5,13 @@ import nz.otot.UrPhase1.Main;
 import nz.otot.UrPhase1.model.graph.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by Main on 05-Jul-17.
  * This keeps track of the game state and passes information to the View/ Controller.
- * The UI then sends commands from the user to Gamestate
+ * The GUI then sends commands from the user to Gamestate
  */
 public class GameState implements Interactor {
 
@@ -59,9 +60,8 @@ public class GameState implements Interactor {
     }
 
     @Override
-    public ArrayList<UIGamePeice> getPostions() {
-        // TODO implement this.
-        return null;
+    public HashMap<Player, Integer> getPositions() {
+        return
     }
 
     @Override

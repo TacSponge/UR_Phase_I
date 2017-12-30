@@ -4,11 +4,11 @@ import javax.swing.*;
 
 /**
  * Created by Main on 19-Jul-17.
- * Testing basic Swing UI
+ * Testing basic Swing GUI
  *
  * There is one frame and different panels can be swapped in and out.
  */
-public class UI{
+public class GUI {
 
     public static void startUI() {
         JFrame frame = new JFrame("UR");

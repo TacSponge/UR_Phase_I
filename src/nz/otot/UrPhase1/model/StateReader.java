@@ -1,6 +1,7 @@
 package nz.otot.UrPhase1.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,10 +13,12 @@ import java.util.List;
  */
 public interface StateReader {
 
-    ArrayList<UIGamePeice> getPostions();
+    HashMap<Player, Integer> getPositions();
 
     int getPoolSize(Player player);
 
     ArrayList<Player> getPlayers();
+
+
 }
 

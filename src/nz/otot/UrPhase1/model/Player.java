@@ -15,7 +15,6 @@ public class Player {
     private static int playerCount = 0;
 
     private String name;
-
     private int piecePool; //number of peices available to use in the pool, not on the board.
     private Node<Piece> startingNode;
 
@@ -26,6 +25,7 @@ public class Player {
         this.startingNode = startingNode; // Takes a start Node from the graph so the graph needs to be made first
 
     }
+    // Auto generate player name with no name given
     Player(int startingPieces, Node<Piece> startingNode) {
 
         this.name = "Player" + Integer.toString(playerCount++);
@@ -49,23 +49,20 @@ public class Player {
     void spawnPiece(){
         //Creates a virtual piece by incrementing one side.
         //In future this could be amended to actually create a Piece object
-
         piecePool++;
-
     }
 
     void killPiece(){
         //counterpart to spawn Pieces
-
         piecePool--;
 
     }
-    Piece transferPeice(){
+    Piece pieceToBoard(){
         killPiece();
         return new Piece(this);
     }
 
-    Node<Piece> getStartingNode(){
+    public Node<Piece> getStartingNode(){
         return startingNode;
     }
 

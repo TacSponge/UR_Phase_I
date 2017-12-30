@@ -21,25 +21,33 @@ public class Node<T>{
 
     private ArrayList<Node> childNodes;
     private T content = null;
-    private ArrayList<Player> players;
+    private ArrayList<Player> playersAllowed;
 
 
     public Node(){
         this.childNodes = new ArrayList<Node>(0);
-        this.players =  new ArrayList<Player>(0);
+        this.playersAllowed =  new ArrayList<Player>(0);
     }
     public Node(ArrayList<Node> childNodes, ArrayList<Player> players){
         this.childNodes = childNodes;
-        this.players = players;
+        this.playersAllowed = players;
 
     }
     public Node(ArrayList<Node> childNodes){
         this.childNodes = childNodes;
-        this.players = new ArrayList<>(0);
+        this.playersAllowed = new ArrayList<>(0);
+    }
+    public ArrayList<Player> getPlayers(){
+        return this.playersAllowed;
     }
 
-    public Optional<T> getContent() {
-        return Optional.of(content);
+    Optional<T> getContent() {return Optional.of(content);}
+
+    boolean hasContent(){return content != null;}
+    boolean hasContent(Player player){
+        if(content != null){
+            if()
+        }
     }
 
     public void setContent(T content) {
@@ -47,8 +55,8 @@ public class Node<T>{
     }
 
     void addPlayer(Player player){
-        if (!this.players.contains(player)) {
-            this.players.add(player);
+        if (!this.playersAllowed.contains(player)) {
+            this.playersAllowed.add(player);
         }
     }
     public void clearContent(){
@@ -62,9 +70,19 @@ public class Node<T>{
     public ArrayList<Node> getChildren(){
         return childNodes;
     }
-    public ArrayList<Player> getPlayers(){
-        return this.players;
+    public ArrayList<Node> getChildren(Player player){
+        ArrayList<Node> playerChildren = new ArrayList<>();
+        for(Node n : childNodes){
+            if(n.playersAllowed.contains(player)) playerChildren.add(n);
+        }
+        return playerChildren;
     }
+    public boolean hasChildren(){return !childNodes.isEmpty();}
+    //create the list of child nodes for the player and see if there are any.
+    public boolean hasChildren(Player player){
+        return !getChildren(player).isEmpty();
+    }
+
 
 
 }

@@ -33,13 +33,13 @@ import java.util.*;
  {'n' 4,     '.',        'n' 5},                  v   v
  {'n' 6,     'j' 7,      'n'8},                   > v <
  {'.',       'n' 9,      '.'},                      v
- {'.',       'n' 10,      '.'},                      v
+ {'.',       'n' 10,     '.'},                      v
  {'.',       'n' 11,     '.'},                      v
  {'.',       'n' 12,     '.'},                      v
  {'.',       'n' 13      '.'},                      v
  {'.',       'n' 14      '.'},                      v
  {'n' 15,    's' 16,     'n' 17},                 v <>v
- {'n' 18,    '.' ,      'n' 19}                  .   .
+ {'n' 18,    '.',        'n' 19}                  .   .
 
 
  *
@@ -56,6 +56,7 @@ public class GraphBuilder<T> {
         this.numNodes = 20;
         int numStartNodes = 2; //first two nodes are start nodes.
 
+        //the edges are defined by the board above
         this.edges = new int[][]{
                     {0,2},{2,4},{4,6},{6,7},
                     {1,3},{3,5},{5,8},{8,7},
@@ -66,7 +67,8 @@ public class GraphBuilder<T> {
 
         ArrayList<Node> nodes = genNodes(numNodes);
         addEdges(nodes);
-        // set start nodes
+
+        //set start nodes
         startNodes = new ArrayList<Node>();
         for(int i = 0; i < numStartNodes; i++) startNodes.add(nodes.get(i));
 
@@ -90,6 +92,7 @@ public class GraphBuilder<T> {
             parent.addChild(child);
         }
     }
+
 
     public ArrayList<Node> getStartNodes(){
         return this.startNodes;
@@ -116,38 +119,5 @@ public class GraphBuilder<T> {
             }
         }
     }
-
-
-    public Node[][] gen2PGrid(ArrayList<Node> nodes){
-        // returns a grid representation of the graph as based on the shape of the Ur board
-        // see below diagram, with arrow symbols, S = start , E = end
-        /* > v <
-           ^ v ^
-           ^ v ^
-           S v S
-           . v .
-           . v .
-           E v E
-           ^ <>^
-           Unconnected nodes are added in as place hodlers for the '.'s.
-         */
-
-
-
-        final Node[][] grid = { {nodes.get(6),nodes.get(7),nodes.get(8)},
-                                {nodes.get(4),nodes.get(9),nodes.get(5)},
-                                {nodes.get(2),nodes.get(10),nodes.get(3)},
-                                {nodes.get(0),nodes.get(11),nodes.get(1)},
-                                {new Node<T>(), nodes.get(12),new Node<T>()},
-                                {new Node<T>(), nodes.get(13),new Node<T>()},
-                                {nodes.get(18),nodes.get(14),nodes.get(19)},
-                                {nodes.get(15),nodes.get(16),nodes.get(17)}
-                        };
-        return grid;
-    }
-
-
-
-
 
 }
