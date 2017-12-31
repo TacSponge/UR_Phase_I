@@ -13,12 +13,11 @@ import java.util.List;
  */
 public interface StateReader {
 
-    HashMap<Player, Integer> getPositions();
+    HashMap<Player, Integer> getPositions(Player p);
 
     int getPoolSize(Player player);
 
     ArrayList<Player> getPlayers();
-
 
 }
 

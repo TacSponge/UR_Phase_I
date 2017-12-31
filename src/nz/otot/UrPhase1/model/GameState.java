@@ -1,12 +1,8 @@
 package nz.otot.UrPhase1.model;
-
-import com.sun.xml.internal.bind.v2.TODO;
 import nz.otot.UrPhase1.Main;
-import nz.otot.UrPhase1.model.graph.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 
 /**
  * Created by Main on 05-Jul-17.
@@ -17,8 +13,7 @@ public class GameState implements Interactor {
 
     // Start nodes are start points in the directional graph that makes up the board.
     // There is a 1-1 correspondence between the number of players and number of start nodes. 2 by default.
-    private ArrayList<Node> startNodes;
-    private ArrayList<Player> players;
+    private HashMap<Player p, >
     private int startingPieces = 7; // in future this may be configured base on the game mode.
 
 

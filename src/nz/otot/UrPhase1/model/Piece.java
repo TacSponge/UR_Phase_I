@@ -14,7 +14,7 @@ import java.util.Optional;
 class Piece implements UIGamePeice{
 
     // All pieces are interchangable, movement is currently handled by the piece itself
-    private Node<Piece> currentNode;
+    private int position;
     private Player player;
 
 

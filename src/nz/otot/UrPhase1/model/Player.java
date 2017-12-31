@@ -13,61 +13,37 @@ import nz.otot.UrPhase1.model.graph.Node;
 public class Player {
 
     private static int playerCount = 0;
-
+    private int poolSize;
     private String name;
-    private int piecePool; //number of peices available to use in the pool, not on the board.
-    private Node<Piece> startingNode;
+    private int score = 0;
 
-    Player(String name, int startingPieces, Node<Piece> startingNode) {
+    Player(String name, int startingPieces) {
 
         this.name = name;
-        this.piecePool = startingPieces;
-        this.startingNode = startingNode; // Takes a start Node from the graph so the graph needs to be made first
+        this.poolSize = startingPieces;
 
     }
     // Auto generate player name with no name given
-    Player(int startingPieces, Node<Piece> startingNode) {
-
-        this.name = "Player" + Integer.toString(playerCount++);
-        this.piecePool = startingPieces;
-        this.startingNode = startingNode; // Takes a start Node from the graph so the graph needs to be made first
-
-        if(Main.testing)System.out.println("Player " + this.name + " created.");
-
-    }
     Player(int startingPieces) {
 
         this.name = "Player" + Integer.toString(playerCount++);
-        this.piecePool = startingPieces;
-        this.startingNode = new Node<Piece>(); // Takes a start Node from the graph so the graph needs to be made first
+        this.poolSize = startingPieces;
+        if(Main.testing)System.out.println("Player " + this.name + " created.");
 
+    int getPoolSize(){
+        return this.poolSize;
     }
-
-
-    // Pool Management methods
-
-    void spawnPiece(){
-        //Creates a virtual piece by incrementing one side.
-        //In future this could be amended to actually create a Piece object
-        piecePool++;
+    void addToPool(){
+        poolSize++;
     }
-
-    void killPiece(){
-        //counterpart to spawn Pieces
-        piecePool--;
-
+    void remFromPool(){
+        poolSize--;
     }
-    Piece pieceToBoard(){
-        killPiece();
-        return new Piece(this);
+    void givePoint(){
+        score++;
     }
-
-    public Node<Piece> getStartingNode(){
-        return startingNode;
+    void getScore(){
+        return score;
     }
-
-    int getSize(){
-        return this.piecePool;
-    }
-
 }
+
