@@ -24,8 +24,11 @@ public class TextOutput {
         return Reciever.boolQuestion();
 
     }
-    static int askForPieceNum(Player p, ArrayList<int> options){
-        System.out.println("Choose a piece");
+    static Integer askForPieceNum(Player p, ArrayList<Integer> options){
+        System.out.println("Choose a piece.");
         return Reciever.numberQuestion(options);
+    }
+    static void squareShared(){
+        System.out.println("ERROR: Square is occupied by two players");
     }
 }

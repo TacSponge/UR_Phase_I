@@ -1,8 +1,7 @@
 package nz.otot.UrPhase1.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 
 /**
  * Created by Main on 06-Jul-17.
@@ -13,7 +12,7 @@ import java.util.List;
  */
 public interface StateReader {
 
-    HashMap<Player, Integer> getPositions(Player p);
+    HashSet<Integer> getPositions(Player p);
 
     int getPoolSize(Player player);
 

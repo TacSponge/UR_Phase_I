@@ -6,11 +6,7 @@ package nz.otot.UrPhase1.model;
  */
 public interface Interactor extends StateReader {
 
-    // Creates a new peice for that player in the pool
-    void spawnPiece(Player player);
-
-   // Moves a piece by a set distance
-    void movePiece(Piece piece, int dist);
-
+    //Moves a piece by a set distance
+    void movePiece(Player p, int piece, int dist);
 
 }

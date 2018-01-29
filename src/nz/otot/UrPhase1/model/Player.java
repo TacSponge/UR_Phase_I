@@ -1,7 +1,6 @@
 package nz.otot.UrPhase1.model;
 
 import nz.otot.UrPhase1.Main;
-import nz.otot.UrPhase1.model.graph.Node;
 
 /**
  * Created by Main on 05-Jul-17.
@@ -28,7 +27,8 @@ public class Player {
 
         this.name = "Player" + Integer.toString(playerCount++);
         this.poolSize = startingPieces;
-        if(Main.testing)System.out.println("Player " + this.name + " created.");
+        if (Main.testing) System.out.println("Player " + this.name + " created.");
+    }
 
     int getPoolSize(){
         return this.poolSize;
@@ -42,7 +42,7 @@ public class Player {
     void givePoint(){
         score++;
     }
-    void getScore(){
+    int getScore(){
         return score;
     }
 }

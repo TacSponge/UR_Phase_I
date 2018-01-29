@@ -22,6 +22,7 @@ class BoardTrack {
 
     BoardTrack(ArrayList<Player> players){
         //by default the board should start empty.
+        positions = new HashMap<>();
         for(Player p : players){
             this.positions.put(p, new HashSet<>());
         }
@@ -77,6 +78,11 @@ class BoardTrack {
             }
         }
     }
-
+    //returns a shallow copy of the positions for one player.
+    HashSet<Integer> getPositions(Player p){
+        HashSet<Integer> playerPosCopy = new HashSet<>();
+        positions.get(p).addAll(playerPosCopy);
+        return playerPosCopy;
+    }
 }
 

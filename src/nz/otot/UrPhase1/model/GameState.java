@@ -1,7 +1,7 @@
 package nz.otot.UrPhase1.model;
 import nz.otot.UrPhase1.Main;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 
 
 /**
@@ -13,59 +13,46 @@ public class GameState implements Interactor {
 
     // Start nodes are start points in the directional graph that makes up the board.
     // There is a 1-1 correspondence between the number of players and number of start nodes. 2 by default.
-    private HashMap<Player p, >
-    private int startingPieces = 7; // in future this may be configured base on the game mode.
 
+    private int startingPieces = 7; // in future this may be configured base on the game mode.
+    private BoardTrack board;
+    private ArrayList<Player> players;
 
 
     public GameState(){
         // Build the graph and assign players their nodes.
-        GraphBuilder builder = new GraphBuilder();
-
-        this.startNodes = builder.getStartNodes();
-        this.players = makePlayers(startNodes);
-        for (Player p : players) builder.assignNodesToPlayer(p, p.getStartingNode());
+        this.players = makePlayers(2);
+        this.board = new BoardTrack(players);
 
         if(Main.testing)System.out.println("Game Start");
     }
 
 
-    private ArrayList<Player> makePlayers(ArrayList<Node> startNodes){
+    private ArrayList<Player> makePlayers(int n){
 
-        ArrayList<Player> players = new ArrayList<Player>(startNodes.size());
-
-        // While the game only needs two players, this allows more modes to be added later.
-        for(Node n : startNodes){
-            players.add(new Player(7,n));
-        }
-
+        ArrayList<Player> players = new ArrayList<>(n);
+        for(int i = 0; i<n; i++) players.add(new Player(7));
         return players;
     }
 
-    @Override
-    public void spawnPiece(Player player) {
-        player.spawnPiece();
 
-    }
-
-
-    @Override
-    public void movePiece(Piece piece, int dist) {
-        piece.movePiece(dist);
+    public void movePiece(Player p, int piece, int dist) {
+        this.board.movePiece(p, piece, dist);
     }
 
     @Override
-    public HashMap<Player, Integer> getPositions() {
-        return
+    //Eacg position is an Integer describing how far down the track that piece is.
+    public HashSet<Integer> getPositions(Player p) {
+        return this.board.getPositions(p);
     }
 
     @Override
     public ArrayList<Player> getPlayers() {
-        return this.players;
+        return (ArrayList<Player>) this.players.clone();
     }
 
     @Override
     public int getPoolSize(Player player) {
-        return player.getSize();
+        return player.getPoolSize();
     }
 }

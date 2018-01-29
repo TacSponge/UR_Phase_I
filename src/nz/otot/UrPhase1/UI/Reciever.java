@@ -33,7 +33,7 @@ public class Reciever {
             }
         }
     }
-    static int numberQuestion(ArrayList<int> options){
+    static int numberQuestion(ArrayList<Integer> options){
 
         while (true){
             System.out.println(String.format("Please select one of: " + options.toString()));
