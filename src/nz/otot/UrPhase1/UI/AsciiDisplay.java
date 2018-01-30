@@ -1,6 +1,7 @@
 package nz.otot.UrPhase1.UI;
 
 
+import nz.otot.UrPhase1.model.Interactor;
 import nz.otot.UrPhase1.model.Player;
 import nz.otot.UrPhase1.model.StateReader;
 import sun.awt.Symbol;
@@ -44,7 +45,7 @@ import java.util.HashMap;
  *  114 011 214     x   v   x
  *  113 012 213     ^  <->  ^
  */
-public class AsciiDisplay {
+public class AsciiDisplay{
     private StateReader state;
     private HashMap<Player, Character> symbols;
     private int[][] grid = {
@@ -58,7 +59,7 @@ public class AsciiDisplay {
             {113, 12,  213}
     };
 
-    public void show2PGrid(StateReader state){
+    public AsciiDisplay(Interactor state){
         this.state = state;
         HashMap<Player, Character> playerSymbols = new HashMap<>();
         playerSymbols.put(findPlayer(0), 'X');
@@ -68,13 +69,14 @@ public class AsciiDisplay {
         if (players.size() != 2){
             System.out.println("Error: incorrect number of players");
         }
-        else{
+    }
+
+    public void update(){
             for(int[] gridLine : this.grid){
                 String printLine = "";
                 for(int i = 0; i < gridLine.length; i++) printLine = printLine + genSquare(gridLine[i]);
                 System.out.println(printLine);
             }
-        }
 
     }
     //Creates the content of a square which is [x], where x is a player symbol if a player has a piece there or ' ' if

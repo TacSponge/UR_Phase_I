@@ -1,16 +1,17 @@
 package nz.otot.UrPhase1.UI;
 
-import nz.otot.UrPhase1.model.StateReader;
+import nz.otot.UrPhase1.model.Interactor;
+
 
 /**
  * Created by Main on 30-Jan-18.
  */
 
 public class UI {
-
-    public static void startUI(StateReader state){
+    public UI(Interactor state){
         TextOutput.welcomeText();
-        AsciiDisplay a = new AsciiDisplay();
-        a.show2PGrid(state);
+        new turnLoop(state);
     }
+
+
 }

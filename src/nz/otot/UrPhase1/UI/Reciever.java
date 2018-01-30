@@ -1,6 +1,7 @@
 package nz.otot.UrPhase1.UI;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 /**
@@ -33,7 +34,7 @@ public class Reciever {
             }
         }
     }
-    static int numberQuestion(ArrayList<Integer> options){
+    static int numberQuestion(HashSet<Integer> options){
 
         while (true){
             System.out.println(String.format("Please select one of: " + options.toString()));

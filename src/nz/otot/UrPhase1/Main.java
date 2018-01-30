@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
        Interactor state = new GameState();
-       UI.startUI(state);
+       UI ui = new UI(state);
 
     }
 }
