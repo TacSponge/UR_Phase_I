@@ -126,7 +126,9 @@ public class AsciiDisplay{
             if((!candidate.equalsIgnoreCase(blank)) && (!square.equalsIgnoreCase(blank))){
                 TextOutput.squareShared();
             }
-            square = candidate;
+            if (!candidate.equalsIgnoreCase(blank)){
+                square = candidate;
+            }
         }
         return square;
     }

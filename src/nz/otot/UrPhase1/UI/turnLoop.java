@@ -31,10 +31,13 @@ public class turnLoop {
     }
     private void makeMove(){
         int dist = Dice.roll();
-        TextOutput.announceRoll(this.activePlayer, dist);
-        HashSet<Integer> positions = getPositions();
-        int piece = TextOutput.askForPieceNum(activePlayer, positions);
-        state.movePiece(activePlayer,piece, dist);
+        boolean validMoveMade = false;
+        while (!validMoveMade) {
+            TextOutput.announceRoll(this.activePlayer, dist);
+            HashSet<Integer> positions = getPositions();
+            int piece = TextOutput.askForPieceNum(activePlayer, positions);
+            validMoveMade = state.movePiece(activePlayer, piece, dist);
+        }
     }
     private void passTurn(){
         ArrayList<Player> players = state.getPlayers();

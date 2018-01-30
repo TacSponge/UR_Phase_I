@@ -50,10 +50,11 @@ class BoardTrack {
                 remPos(p, piece);
                 p.givePoint();
             }
-            if(piece == 0) {
+            else if(piece == 0) {
                 p.remFromPool();
                 addPos(p, endPos);
-            } else{
+            }
+            else{
                 remPos(p, piece);
                 addPos(p,endPos);
             }
@@ -80,9 +81,10 @@ class BoardTrack {
     }
     //returns a shallow copy of the positions for one player.
     HashSet<Integer> getPositions(Player p){
-        HashSet<Integer> playerPosCopy = new HashSet<>();
-        positions.get(p).addAll(playerPosCopy);
-        return playerPosCopy;
+        //HashSet<Integer> playerPosCopy = new HashSet<>();
+        //positions.get(p).addAll(playerPosCopy);
+        //return playerPosCopy;
+        return positions.get(p);
     }
 }
 

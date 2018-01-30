@@ -36,8 +36,8 @@ public class GameState implements Interactor {
     }
 
 
-    public void movePiece(Player p, int piece, int dist) {
-        this.board.movePiece(p, piece, dist);
+    public boolean movePiece(Player p, int piece, int dist) {
+        return this.board.movePiece(p, piece, dist);
     }
 
     @Override
