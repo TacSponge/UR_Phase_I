@@ -36,23 +36,27 @@ public class GameState implements Interactor {
     }
 
 
-    public boolean movePiece(Player p, int piece, int dist) {
-        return this.board.movePiece(p, piece, dist);
+    public boolean movePiece(int pID, int piece, int dist) {
+        return this.board.movePiece(this.players.get(pID), piece, dist);
     }
 
-    @Override
-    //Eacg position is an Integer describing how far down the track that piece is.
-    public HashSet<Integer> getPositions(Player p) {
-        return this.board.getPositions(p);
+
+    //Each position is an Integer describing how far down the track that piece is.
+    public HashSet<Integer> getPositions(int pID) {
+        return this.board.getPositions(this.players.get(pID));
     }
 
-    @Override
-    public ArrayList<Player> getPlayers() {
-        return (ArrayList<Player>) this.players.clone();
+    public ArrayList<Integer> getPIDs(){
+        ArrayList<Integer> pIDs = new ArrayList<>(this.players.size());
+        for(int i = 0; i < this.players.size(); i++){pIDs.add(i);}
+        return pIDs;
     }
 
-    @Override
-    public int getPoolSize(Player player) {
-        return player.getPoolSize();
+    public int getPoolSize(int pID) {
+        return players.get(pID).getPoolSize();
+    }
+    public int getScore(int pID){return players.get(pID).getScore();}
+    public String getPlayerName(int pID){
+        return this.players.get(pID).toString();
     }
 }

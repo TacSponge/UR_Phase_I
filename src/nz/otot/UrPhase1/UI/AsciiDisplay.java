@@ -4,7 +4,6 @@ package nz.otot.UrPhase1.UI;
 import nz.otot.UrPhase1.model.Interactor;
 import nz.otot.UrPhase1.model.Player;
 import nz.otot.UrPhase1.model.StateReader;
-import sun.awt.Symbol;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,9 +44,10 @@ import java.util.HashMap;
  *  114 011 214     x   v   x
  *  113 012 213     ^  <->  ^
  */
-public class AsciiDisplay{
+class AsciiDisplay{
     private StateReader state;
-    private HashMap<Player, Character> symbols;
+    private HashMap<Integer, String> symbols;
+    // This grid should match the one described above.
     private int[][] grid = {
             {104, 5,   204},
             {103, 6,   203},
@@ -59,29 +59,40 @@ public class AsciiDisplay{
             {113, 12,  213}
     };
 
-    public AsciiDisplay(Interactor state){
+    AsciiDisplay(Interactor state){
         this.state = state;
-        HashMap<Player, Character> playerSymbols = new HashMap<>();
-        playerSymbols.put(findPlayer(0), 'X');
-        playerSymbols.put(findPlayer(1), 'O');
+
+        HashMap<Integer, String> playerSymbols = new HashMap<>();
+        playerSymbols.put(findPlayer(0), "X");
+        playerSymbols.put(findPlayer(1), "O");
         this.symbols = playerSymbols;
-        ArrayList<Player> players = this.state.getPlayers();
+
+        ArrayList<Integer> players = this.state.getPIDs();
         if (players.size() != 2){
             System.out.println("Error: incorrect number of players");
         }
     }
-
-    public void update(){
-            for(int[] gridLine : this.grid){
-                String printLine = "";
-                for(int i = 0; i < gridLine.length; i++) printLine = printLine + genSquare(gridLine[i]);
-                System.out.println(printLine);
-            }
-
+    // Go through each sqaure in the grid and use genSquare() to get the correct symbol. Then print to console
+    void update(Integer active){
+        TextOutput.lineBreak();
+        TextOutput.score2P(state.getScore(findPlayer(0)), state.getScore(findPlayer(1)));
+        TextOutput.announceTurn(state.getPlayerName(active));
+        makeGrid(active);
     }
-    //Creates the content of a square which is [x], where x is a player symbol if a player has a piece there or ' ' if
-    //square is empty. The square knows which players it can hold from the numbering system.
-    private String genSquare(int squareNum){
+
+    void makeGrid(Integer active){
+        for(int[] gridLine : this.grid){
+            String printLine = "";
+            for(int i = 0; i < gridLine.length; i++) {
+                printLine = printLine + genSquare(active, gridLine[i]);
+            }
+            System.out.println(printLine);
+        }
+    }
+    //Creates the content of a square which is [n] where n is the position number if it is the active playor or [x],
+    //where x is a player symbol if a non active player has a piece there or ' ' if square is empty. The square knows
+    //which players it can hold from the numbering system.
+    private String genSquare(Integer active, int squareNum){
         String squareDisplay = "[ ]";
         int pos = squareNum % 100; // the hundreds column of the squarenum shows the section, so the position is the last two digits
         if (squareNum == 0) squareDisplay = "[~]";
@@ -90,50 +101,56 @@ public class AsciiDisplay{
         }
         //5 <= Squarenum < 100
         else if(squareNum < 100){
-            squareDisplay = getSquareSymbol(state.getPlayers(), pos);
+            squareDisplay = getSquareSymbol(active, state.getPIDs(), pos); //these squares shared by multiple players
         }
         //100 <= squareNum < 200 so it is in section 100;
         else {
             int playerIndex;
-            Player p;
+            int owner;
             if(squareNum < 200) {
                 playerIndex = 0;
-                p = findPlayer(playerIndex); // The section 100 squares belong to the first player.
+                owner = findPlayer(playerIndex); // The section 100 squares belong to the first player.
             }
             else {
                 playerIndex = 1;
-                p = findPlayer(playerIndex);
+                owner = findPlayer(playerIndex); // the section 200 squares belong to the second player
             }
-            squareDisplay = getSquareSymbol(p, pos);
+            squareDisplay = getSquareSymbol(active, owner, pos);
         }
         return squareDisplay;
     }
 
-    private String getSquareSymbol(Player p, int pos){
-        char squareSymbol = ' ';
-        if (state.getPositions(p).contains(pos)) {
+    private String getSquareSymbol(int active, int owner, int pos){
+        String squareSymbol = " ";
+        if (state.getPositions(owner).contains(pos)) {
             //switch the default empty symbol to the symbol for that player.
-            squareSymbol = symbols.get(p);
+            if (owner == active) squareSymbol = Integer.toString(pos);
+            else squareSymbol = symbols.get(owner);
         }
         return "[" + squareSymbol + "]";
     }
-
-    private String getSquareSymbol(ArrayList<Player> players, int pos){
+    // The middle squares could have one of many symbols in them so this overloads the above and then runs through
+    //using the single player method to check if any of them have players there.
+    private String getSquareSymbol(Integer active, ArrayList<Integer> players, int pos){
         final String blank = "[ ]";
         String square = blank;
-        for(Player p : players) {
-            String candidate = getSquareSymbol(p, pos);
+
+        for(int p : players) {
+            String candidate = getSquareSymbol(active, p, pos);
+            //If we try to assign two symbols to a single square there is probably an error with the mapping.
             if((!candidate.equalsIgnoreCase(blank)) && (!square.equalsIgnoreCase(blank))){
                 TextOutput.squareShared();
             }
+            //getSqaureSymbol() will return blank if the player is not there, so this stops the second player from
+            //writing blank over the symbol that the first player put there.
             if (!candidate.equalsIgnoreCase(blank)){
                 square = candidate;
             }
         }
         return square;
     }
-    private Player findPlayer(int playerIndex){
-        return this.state.getPlayers().get(playerIndex);
+    private int findPlayer(int playerIndex){
+        return this.state.getPIDs().get(playerIndex);
     }
 
 }

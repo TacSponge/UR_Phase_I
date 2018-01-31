@@ -4,6 +4,7 @@ import nz.otot.UrPhase1.model.Player;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Main on 20-Nov-17.
@@ -25,14 +26,24 @@ public class TextOutput {
         return Reciever.boolQuestion();
 
     }
-    static Integer askForPieceNum(Player p, HashSet<Integer> options){
+    static Integer askForPieceNum(HashSet<Integer> options){
         System.out.println("Choose a piece.");
         return Reciever.numberQuestion(options);
     }
-    static void announceRoll(Player player, int roll){
-        System.out.println(player.toString() + "you have rolled: " + roll + ". You can move one piece that distance.");
+    static void announceRoll(String name, int roll){
+        System.out.println(name + ", you have rolled: " + roll + ". You can move one piece that distance.");
     }
     static void squareShared(){
         System.out.println("ERROR: Square is occupied by two players");
+    }
+    static void lineBreak(){
+        System.out.println("________________________________________\n");
+    }
+    static void announceTurn(String name){
+        System.out.println(name + ", it is your turn.");
+    }
+    static void zeroRoll(){System.out.println("You have rolled 0, skipping your turn.");}
+    static void score2P(int p0, int p1){
+        System.out.println("The score is: " + p0 + " - " + p1 + ".");
     }
 }

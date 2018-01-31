@@ -12,11 +12,14 @@ import java.util.HashSet;
  */
 public interface StateReader {
 
-    HashSet<Integer> getPositions(Player p);
+    HashSet<Integer> getPositions(int pID);
 
-    int getPoolSize(Player player);
+    int getPoolSize(int pID);
 
-    ArrayList<Player> getPlayers();
+    int getScore(int pID);
 
+    ArrayList<Integer> getPIDs();
+
+    String getPlayerName(int pID);
 }
 

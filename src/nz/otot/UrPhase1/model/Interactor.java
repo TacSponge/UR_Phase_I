@@ -7,6 +7,5 @@ package nz.otot.UrPhase1.model;
 public interface Interactor extends StateReader {
 
     //Moves a piece by a set distance
-    boolean movePiece(Player p, int piece, int dist);
-
+    boolean movePiece(int pID, int piece, int dist);
 }

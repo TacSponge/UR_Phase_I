@@ -87,4 +87,3 @@ class BoardTrack {
         return positions.get(p);
     }
 }
-
