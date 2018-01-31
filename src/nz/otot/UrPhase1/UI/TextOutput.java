@@ -46,4 +46,7 @@ public class TextOutput {
     static void score2P(int p0, int p1){
         System.out.println("The score is: " + p0 + " - " + p1 + ".");
     }
+    static void gameOver(String name){
+        System.out.println("Game Over, " + name + " wins!");
+    }
 }

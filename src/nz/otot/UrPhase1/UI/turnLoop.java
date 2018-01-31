@@ -26,8 +26,10 @@ public class turnLoop {
         while (true) {
             display.update(active);
             makeMove();
+            if (state.checkVictory(active)) break;
             passTurn();
         }
+        TextOutput.gameOver(state.getPlayerName(active));
     }
     private void makeMove(){
         int dist = Dice.roll();

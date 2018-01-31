@@ -81,9 +81,8 @@ class BoardTrack {
     }
     //returns a shallow copy of the positions for one player.
     HashSet<Integer> getPositions(Player p){
-        //HashSet<Integer> playerPosCopy = new HashSet<>();
-        //positions.get(p).addAll(playerPosCopy);
-        //return playerPosCopy;
-        return positions.get(p);
+        HashSet<Integer> playerPosCopy = new HashSet<>();
+        playerPosCopy.addAll(positions.get(p));
+        return playerPosCopy;
     }
 }

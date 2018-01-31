@@ -18,7 +18,6 @@ public class GameState implements Interactor {
     private BoardTrack board;
     private ArrayList<Player> players;
 
-
     public GameState(){
         // Build the graph and assign players their nodes.
         this.players = makePlayers(2);
@@ -35,9 +34,11 @@ public class GameState implements Interactor {
         return players;
     }
 
-
+    //signals to the UI by returning an int.
+    //2 = Invalid, 1 = winning move, 0 = valid regular move.
     public boolean movePiece(int pID, int piece, int dist) {
         return this.board.movePiece(this.players.get(pID), piece, dist);
+
     }
 
 
@@ -56,6 +57,10 @@ public class GameState implements Interactor {
         return players.get(pID).getPoolSize();
     }
     public int getScore(int pID){return players.get(pID).getScore();}
+    public boolean checkVictory(int pID){
+        return (this.players.get(pID).getScore() >= 7);
+
+    }
     public String getPlayerName(int pID){
         return this.players.get(pID).toString();
     }

@@ -21,5 +21,7 @@ public interface StateReader {
     ArrayList<Integer> getPIDs();
 
     String getPlayerName(int pID);
+
+    boolean checkVictory(int pID);
 }
 
