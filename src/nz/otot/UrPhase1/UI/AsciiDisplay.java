@@ -2,17 +2,17 @@ package nz.otot.UrPhase1.UI;
 
 
 import nz.otot.UrPhase1.model.Interactor;
-import nz.otot.UrPhase1.model.Player;
 import nz.otot.UrPhase1.model.StateReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by Main on 20-Nov-17.
  *
  * This is an ASCII representation of the board state.
- * At this part display logic becomes tied to a 2 player game.
+ * At this part queue logic becomes tied to a 2 player game.
  *
  *The Board is sort of I shaped with the two starting positions on either side of the central column, before heading up
  * wrapping inside and going down a central column and then wrapping up the side again.
@@ -32,7 +32,7 @@ import java.util.HashMap;
  * This gives us the following board where, where each square is given its final identifier and --- is an empty square:
  *  //note that they will be stored as ints so '005' becomes '5' etc.
  *
- *  Below is a mapping of the squares to their numbers and a pictoral display using arrows to show the board flow.
+ *  Below is a mapping of the squares to their numbers and a pictoral queue using arrows to show the board flow.
  *  'o' is the start, x is the end, - is empty and the other characters indicate direction of peice movement.
  *
  *  104 005 204     >   v   <
@@ -47,6 +47,7 @@ import java.util.HashMap;
 class AsciiDisplay{
     private StateReader state;
     private HashMap<Integer, String> symbols;
+    private ArrayBlockingQueue<String> queue;
     // This grid should match the one described above.
     private int[][] grid = {
             {104, 5,   204},
@@ -59,8 +60,9 @@ class AsciiDisplay{
             {113, 12,  213}
     };
 
-    AsciiDisplay(Interactor state){
+    AsciiDisplay(Interactor state, ArrayBlockingQueue<String> d){
         this.state = state;
+        this.queue = d;
 
         HashMap<Integer, String> playerSymbols = new HashMap<>();
         playerSymbols.put(findPlayer(0), "X");

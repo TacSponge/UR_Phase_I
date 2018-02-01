@@ -4,6 +4,7 @@ import nz.otot.UrPhase1.model.Player;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -16,19 +17,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class TextOutput {
 
-    static void welcomeText(){
-
-        System.out.println("THE ROYAL GAME OF UR.\n");
-    }
-
-    static boolean askToStart(){
+    static void welcomeText(){System.out.println("THE ROYAL GAME OF UR.\n");}
+    static boolean askToStart(ArrayBlockingQueue<String> queue){
         System.out.println("Would you like to start a new game.");
-        return Reciever.boolQuestion();
-
+        return Reciever.boolQuestion(queue);
     }
-    static Integer askForPieceNum(HashSet<Integer> options){
+    static Integer askForPieceNum(HashSet<Integer> options, ArrayBlockingQueue<String> queue){
         System.out.println("Choose a piece.");
-        return Reciever.numberQuestion(options);
+        return Reciever.numberQuestion(options, queue);
     }
     static void announceRoll(String name, int roll){
         System.out.println(name + ", you have rolled: " + roll + ". You can move one piece that distance.");

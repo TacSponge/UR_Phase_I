@@ -1,28 +1,37 @@
 package nz.otot.UrPhase1.UI;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by Main on 20-Nov-17.
  *
- * Takes input from the command line.
+ * Takes input from the queue.
  *
  */
 public class Reciever {
-    static String receiveString(){
-        Scanner scan = new Scanner(System.in);
-        String s = scan.nextLine();
-        return s;
+
+
+    static String receiveString(ArrayBlockingQueue<String> queue){
+        try {
+            return queue.take();
+        }
+        catch (InterruptedException e){
+            System.exit(1);
+            return "";
+        }
+
     }
 
-    static boolean boolQuestion(){
+    static boolean boolQuestion(ArrayBlockingQueue queue){
         System.out.println("Please enter Y/N");
 
 
         while(true){
-            String response = receiveString();
+            String response = receiveString(queue);
             if(response.equalsIgnoreCase("N")){
                 return false;
             }
@@ -34,11 +43,11 @@ public class Reciever {
             }
         }
     }
-    static int numberQuestion(HashSet<Integer> options){
+    static int numberQuestion(HashSet<Integer> options, ArrayBlockingQueue queue){
 
         while (true){
             System.out.println(String.format("Please select one of: " + options.toString()));
-            String response = receiveString();
+            String response = receiveString(queue);
 
             if (Validate.isInteger(response)){
                 int i = Integer.parseInt(response);
@@ -51,6 +60,4 @@ public class Reciever {
             System.out.println("Apologies. That is invalid.");
         }
     }
-
-
 }

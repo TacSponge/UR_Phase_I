@@ -2,29 +2,31 @@ package nz.otot.UrPhase1.UI;
 
 import nz.otot.UrPhase1.model.Dice;
 import nz.otot.UrPhase1.model.Interactor;
-import nz.otot.UrPhase1.model.Player;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by Main on 30-Jan-18.
  */
 public class turnLoop {
     int active;
-    AsciiDisplay display;
+    AsciiDisplay board;
     Interactor state;
+    ArrayBlockingQueue<String> queue;
 
-    turnLoop(Interactor state){
+    turnLoop(Interactor state, ArrayBlockingQueue<String> queue){
         this.active = state.getPIDs().get(0);
-        this.display = new AsciiDisplay(state);
+        this.queue = queue;
+        this.board = new AsciiDisplay(state, queue);
         this.state = state;
         TextOutput.welcomeText();
         loop();
     }
     private void loop(){
         while (true) {
-            display.update(active);
+            board.update(active);
             makeMove();
             if (state.checkVictory(active)) break;
             passTurn();
@@ -43,7 +45,7 @@ public class turnLoop {
         while (!validMoveMade) {
             TextOutput.announceRoll(name, dist);
             HashSet<Integer> positions = getPositions();
-            int piece = TextOutput.askForPieceNum(positions);
+            int piece = TextOutput.askForPieceNum(positions, queue);
             validMoveMade = state.movePiece(active, piece, dist); //move piece reports true if the move was valid
         }
     }
