@@ -25,13 +25,15 @@ public class Display {
                 queue.clear();
                 queue.offer(inputField.getText());
                 inputField.setText("");
-
             }
         });
     }
 
     void addTextln(String text){
         this.textDisplay.append(text + "\n");
+    }
+    void scrollDown(){
+        this.textDisplay.setCaretPosition(textDisplay.getDocument().getLength());
     }
 
 

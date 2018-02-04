@@ -66,7 +66,7 @@ class AsciiDisplay{
 
         HashMap<Integer, String> playerSymbols = new HashMap<>();
         playerSymbols.put(findPlayer(0), "X");
-        playerSymbols.put(findPlayer(1), "O");
+        playerSymbols.put(findPlayer(1), "X");
         this.symbols = playerSymbols;
 
         ArrayList<Integer> players = this.state.getPIDs();

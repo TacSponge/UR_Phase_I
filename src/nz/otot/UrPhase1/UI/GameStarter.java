@@ -35,6 +35,7 @@ public class GameStarter {
             @Override
             public void println(String text){
                 d.addTextln(text);
+                d.scrollDown();
             }
         };
         return stream;
