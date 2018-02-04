@@ -4,9 +4,9 @@ package nz.otot.UrPhase1.UI;
 import nz.otot.UrPhase1.model.Interactor;
 import nz.otot.UrPhase1.model.StateReader;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by Main on 20-Nov-17.
@@ -46,8 +46,8 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 class AsciiDisplay{
     private StateReader state;
+    private PrintStream stream;
     private HashMap<Integer, String> symbols;
-    private ArrayBlockingQueue<String> queue;
     // This grid should match the one described above.
     private int[][] grid = {
             {104, 5,   204},
@@ -60,9 +60,9 @@ class AsciiDisplay{
             {113, 12,  213}
     };
 
-    AsciiDisplay(Interactor state, ArrayBlockingQueue<String> d){
+    AsciiDisplay(Interactor state, PrintStream stream){
         this.state = state;
-        this.queue = d;
+        this.stream = stream;
 
         HashMap<Integer, String> playerSymbols = new HashMap<>();
         playerSymbols.put(findPlayer(0), "X");
@@ -74,11 +74,11 @@ class AsciiDisplay{
             System.out.println("Error: incorrect number of players");
         }
     }
-    // Go through each sqaure in the grid and use genSquare() to get the correct symbol. Then print to console
+    // Go through each square in the grid and use genSquare() to get the correct symbol. Then print to console
     void update(Integer active){
-        TextOutput.lineBreak();
-        TextOutput.score2P(state.getScore(findPlayer(0)), state.getScore(findPlayer(1)));
-        TextOutput.announceTurn(state.getPlayerName(active));
+        TextOutput.lineBreak(stream);
+        TextOutput.score2P(state.getScore(findPlayer(0)), state.getScore(findPlayer(1)),stream);
+        TextOutput.announceTurn(state.getPlayerName(active),stream);
         makeGrid(active);
     }
 
@@ -88,7 +88,7 @@ class AsciiDisplay{
             for(int i = 0; i < gridLine.length; i++) {
                 printLine = printLine + genSquare(active, gridLine[i]);
             }
-            System.out.println(printLine);
+            this.stream.println(printLine);
         }
     }
     //Creates the content of a square which is [n] where n is the position number if it is the active playor or [x],
@@ -141,7 +141,7 @@ class AsciiDisplay{
             String candidate = getSquareSymbol(active, p, pos);
             //If we try to assign two symbols to a single square there is probably an error with the mapping.
             if((!candidate.equalsIgnoreCase(blank)) && (!square.equalsIgnoreCase(blank))){
-                TextOutput.squareShared();
+                TextOutput.squareShared(this.stream);
             }
             //getSqaureSymbol() will return blank if the player is not there, so this stops the second player from
             //writing blank over the symbol that the first player put there.

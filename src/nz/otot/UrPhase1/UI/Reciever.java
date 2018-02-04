@@ -1,6 +1,7 @@
 package nz.otot.UrPhase1.UI;
 
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -10,6 +11,8 @@ import java.util.concurrent.ArrayBlockingQueue;
  * Created by Main on 20-Nov-17.
  *
  * Takes input from the queue.
+ *
+ * This is primarily called by the Text Output methods
  *
  */
 public class Reciever {
@@ -43,10 +46,10 @@ public class Reciever {
             }
         }
     }
-    static int numberQuestion(HashSet<Integer> options, ArrayBlockingQueue queue){
+    static int numberQuestion(HashSet<Integer> options, ArrayBlockingQueue queue, PrintStream stream){
 
         while (true){
-            System.out.println(String.format("Please select one of: " + options.toString()));
+            TextOutput.selectInt(options, stream);
             String response = receiveString(queue);
 
             if (Validate.isInteger(response)){
@@ -57,7 +60,7 @@ public class Reciever {
                 }
             }
             //If we are here we failed somewhere to get the integer.
-            System.out.println("Apologies. That is invalid.");
+            System.out.println();
         }
     }
 }

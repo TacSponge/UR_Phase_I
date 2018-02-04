@@ -13,6 +13,7 @@ public class Display {
     JPanel mainPanel;
     private JTextArea textDisplay;
     private JTextField inputField;
+    private JScrollPane scroll;
     private ArrayBlockingQueue<String> queue;
 
 
@@ -24,6 +25,7 @@ public class Display {
                 queue.clear();
                 queue.offer(inputField.getText());
                 inputField.setText("");
+
             }
         });
     }
@@ -31,4 +33,7 @@ public class Display {
     void addTextln(String text){
         this.textDisplay.append(text + "\n");
     }
+
+
+
 }

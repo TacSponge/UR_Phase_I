@@ -34,7 +34,7 @@ public class GameState implements Interactor {
         return players;
     }
 
-    //signals to the UI by returning an int.
+    //signals to the GameStarter by returning an int.
     //2 = Invalid, 1 = winning move, 0 = valid regular move.
     public boolean movePiece(int pID, int piece, int dist) {
         return this.board.movePiece(this.players.get(pID), piece, dist);
