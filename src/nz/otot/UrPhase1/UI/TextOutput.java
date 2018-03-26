@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 class TextOutput {
 
-       static void welcomeText(PrintStream stream){stream.println("THE ROYAL GAME OF UR.\n");}
+    static void welcomeText(PrintStream stream){stream.println("THE ROYAL GAME OF UR.\n");}
     static boolean askToStart(ArrayBlockingQueue<String> queue, PrintStream stream){
         stream.println("Would you like to start a new game.");
         return Reciever.boolQuestion(queue);

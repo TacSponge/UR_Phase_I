@@ -3,13 +3,13 @@ package nz.otot.UrPhase1.UI;
 import nz.otot.UrPhase1.model.Interactor;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.PrintStream;
 import java.util.concurrent.ArrayBlockingQueue;
 
 
 /**
  * Created by Main on 30-Jan-18.
+ * Starts the game, sets up the logical UI and the Display
  */
 
 public class GameStarter {
@@ -30,6 +30,7 @@ public class GameStarter {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         return d;
     }
+    //Creates a new Stream based on System.out. Println is diverted to the Swing UI
     private PrintStream makeStream(Display d){
         PrintStream stream = new PrintStream(System.out){
             @Override

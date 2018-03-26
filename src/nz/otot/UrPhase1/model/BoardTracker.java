@@ -8,19 +8,21 @@ import java.util.HashSet;
 /**
  * Created by Main on 31-Dec-17.
  *
- * This is an set based model of the positions of peices on the board.
+ * This is a set based model of the positions of pieces on the board.
  * Here pieces are just integers that state how far they are along the track.
- * The track is 1D but there are positions which overlap. The start space is 1.
- * The pool is the space 0.
+ * The track is 1-D but there are positions which overlap. The start space is 1.
+ * The pool is the space 0, this represents pieces which are yet to be placed on the board.
+ * In a standard game the players start with 7 pieces in their pool.
  */
-class BoardTrack {
+class BoardTracker {
+    //Positions stores N sets showing the position of each of N players pieces. (N is 2 for a standard game)
     HashMap<Player, HashSet<Integer>> positions;
     int finalSquare;
     int overlapStart;
     int overlapEnd;
 
 
-    BoardTrack(ArrayList<Player> players){
+    BoardTracker(ArrayList<Player> players){
         //by default the board should start empty.
         positions = new HashMap<>();
         for(Player p : players){
@@ -35,12 +37,16 @@ class BoardTrack {
         HashSet<Integer> playerPos = positions.get(p);
         int endPos = piece + dist;
         boolean exists;
+        //Check that there is an available piece in the pool
         if(piece == 0){
             exists = p.getPoolSize() >= 1;
         }
+        //Check that the starting position has a piece
         else exists = playerPos.contains(piece);
+        //Check that the end peice does not already contain a piece belonging to that player.
         return exists && (!playerPos.contains(endPos));
     }
+    //Returns True and moves the piece if it is a valid move, otherwise it returns False.
     boolean movePiece(Player p, int piece, int dist){
         boolean valid = validateMove(p, piece, dist);
         if (valid){
@@ -67,6 +73,7 @@ class BoardTrack {
     private boolean remPos(Player p, int piece){
         return positions.get(p).remove(piece);
     }
+
     //This method should only be called after we have validated that there is no allied piece in the end position
     //It tries to remove the specified piece from the other players track and if there is something to remove, it spawns
     //a peice in that players pool.

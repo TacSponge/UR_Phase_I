@@ -91,8 +91,8 @@ class AsciiDisplay{
             this.stream.println(printLine);
         }
     }
-    //Creates the content of a square which is [n] where n is the position number if it is the active playor or [x],
-    //where x is a player symbol if a non active player has a piece there or ' ' if square is empty. The square knows
+    //Creates the content of a square which is [n] where n is the position number if it is the activePlayer playor or [x],
+    //where x is a player symbol if a non activePlayer player has a piece there or ' ' if square is empty. The square knows
     //which players it can hold from the numbering system.
     private String genSquare(Integer active, int squareNum){
         String squareDisplay = "[ ]";

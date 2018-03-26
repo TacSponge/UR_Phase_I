@@ -11,19 +11,14 @@ import java.util.HashSet;
  */
 public class GameState implements Interactor {
 
-    // Start nodes are start points in the directional graph that makes up the board.
-    // There is a 1-1 correspondence between the number of players and number of start nodes. 2 by default.
-
     private int startingPieces = 7; // in future this may be configured base on the game mode.
-    private BoardTrack board;
+    private BoardTracker board;
     private ArrayList<Player> players;
 
     public GameState(){
-        // Build the graph and assign players their nodes.
-        this.players = makePlayers(2);
-        this.board = new BoardTrack(players);
-
-        if(Main.testing)System.out.println("Game Start");
+        int nPlayers = 2;
+        this.players = makePlayers(nPlayers);
+        this.board = new BoardTracker(players);
     }
 
 
@@ -34,11 +29,9 @@ public class GameState implements Interactor {
         return players;
     }
 
-    //signals to the GameStarter by returning an int.
-    //2 = Invalid, 1 = winning move, 0 = valid regular move.
+    //Returns True and Moves the Piece if it is valid, otherwise it returns False
     public boolean movePiece(int pID, int piece, int dist) {
         return this.board.movePiece(this.players.get(pID), piece, dist);
-
     }
 
 
@@ -54,9 +47,9 @@ public class GameState implements Interactor {
     }
 
     public int getPoolSize(int pID) {
-        return players.get(pID).getPoolSize();
+        return this.players.get(pID).getPoolSize();
     }
-    public int getScore(int pID){return players.get(pID).getScore();}
+    public int getScore(int pID){return this.players.get(pID).getScore();}
     public boolean checkVictory(int pID){
         return (this.players.get(pID).getScore() >= 7);
 
